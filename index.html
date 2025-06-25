@@ -105,9 +105,12 @@
             top: 0; 
             color: #f1c40f; 
         }
+        .input-group {
+            position: relative;
+            margin: 15px 0;
+        }
         input { 
             display: block; 
-            margin: 15px 0; 
             padding: 12px; 
             width: 100%; 
             border: 2px solid var(--input-border); 
@@ -120,6 +123,16 @@
         }
         input::placeholder { 
             color: var(--paragraph-color); 
+        }
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: var(--link-color);
+            cursor: pointer;
+            user-select: none;
         }
         button { 
             padding: 12px; 
@@ -200,17 +213,31 @@
     <button class="theme-toggle" onclick="toggleTheme()">☀</button>
     <div class="container" id="registerSection">
         <h2>Register</h2>
-        <input type="text" id="regName" placeholder="Name">
-        <input type="text" id="regNumber" placeholder="Phone Number">
-        <input type="email" id="regEmail" placeholder="Email">
-        <input type="password" id="regPassword" placeholder="Password">
+        <div class="input-group">
+            <input type="text" id="regName" placeholder="Name">
+        </div>
+        <div class="input-group">
+            <input type="text" id="regNumber" placeholder="Phone Number">
+        </div>
+        <div class="input-group">
+            <input type="email" id="regEmail" placeholder="Email">
+        </div>
+        <div class="input-group">
+            <input type="password" id="regPassword" placeholder="Password">
+            <span class="eye-icon" onclick="togglePassword('regPassword')">👁️‍🗨️</span>
+        </div>
         <button onclick="register()">Register</button>
         <p>Already have an account? <span onclick="showLogin()">Login</span></p>
     </div>
     <div class="container" id="loginSection" style="display: none;">
         <h2>Login</h2>
-        <input type="text" id="loginIdentifier" placeholder="Email or Phone Number">
-        <input type="password" id="loginPassword" placeholder="Password">
+        <div class="input-group">
+            <input type="text" id="loginIdentifier" placeholder="Email or Phone Number">
+        </div>
+        <div class="input-group">
+            <input type="password" id="loginPassword" placeholder="Password">
+            <span class="eye-icon" onclick="togglePassword('loginPassword')">👁️‍🗨️</span>
+        </div>
         <button onclick="login()">Login</button>
         <p>Don't have an account? <span onclick="showRegister()">Register</span></p>
     </div>
@@ -296,6 +323,18 @@
             document.body.setAttribute('data-theme', isDarkTheme ? 'dark' : '');
             const toggleButton = document.querySelector('.theme-toggle');
             toggleButton.textContent = isDarkTheme ? '☾' : '☀';
+        }
+
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const eyeIcon = passwordField.nextElementSibling;
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.textContent = "👁️"; // Open eye
+            } else {
+                passwordField.type = "password";
+                eyeIcon.textContent = "👁️‍🗨️"; // Closed eye
+            }
         }
     </script>
 </body>
